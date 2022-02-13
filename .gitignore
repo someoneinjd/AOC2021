@@ -1,0 +1,6 @@
+.cache
+.xmake
+build
+compile_commands.json
+new.sh
+test.sh
