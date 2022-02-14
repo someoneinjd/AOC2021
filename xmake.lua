@@ -1,20 +1,20 @@
-package("range-v3")
+package('range-v3')
 
-    set_homepage("https://github.com/ericniebler/range-v3/")
-    set_description("Range library for C++14/17/20, basis for C++20's std::ranges")
-    set_license("BSL-1.0")
+    set_homepage('https://github.com/ericniebler/range-v3/')
+    set_description('Range library for C++14/17/20, basis for C++20\'s std::ranges')
+    set_license('BSL-1.0')
 
-    add_urls("https://github.com/ericniebler/range-v3.git")
+    add_urls('https://github.com/ericniebler/range-v3.git')
 
-    add_deps("cmake")
-    if is_plat("windows") then
-        add_cxxflags("/permissive-")
+    add_deps('cmake')
+    if is_plat('windows') then
+        add_cxxflags('/permissive-')
     end
 
     on_install(function (package)
-        local configs = {"-DRANGE_V3_DOCS=OFF", "-DRANGE_V3_TESTS=OFF", "-DRANGE_V3_EXAMPLES=OFF", "-DRANGE_V3_PERF=OFF"}
-        table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:debug() and "Debug" or "Release"))
-        import("package.tools.cmake").install(package, configs)
+        local configs = {'-DRANGE_V3_DOCS=OFF', '-DRANGE_V3_TESTS=OFF', '-DRANGE_V3_EXAMPLES=OFF', '-DRANGE_V3_PERF=OFF'}
+        table.insert(configs, '-DCMAKE_BUILD_TYPE=' .. (package:debug() and 'Debug' or 'Release'))
+        import('package.tools.cmake').install(package, configs)
     end)
 
     on_test(function (package)
@@ -30,7 +30,7 @@ package("range-v3")
                     });
                 });
             }
-        ]]}, {configs = {languages = "c++17"}, includes = "range/v3/all.hpp"}))
+        ]]}, {configs = {languages = 'c++17'}, includes = 'range/v3/all.hpp'}))
     end)
 package_end()
 
@@ -39,9 +39,14 @@ add_requires('range-v3')
 set_languages('c++20')
 add_rules('mode.asan')
 
+option('benchmark')
+    set_default(false)
+    set_showmenu(true)
+    add_defines('BENCHMARK')
+option_end()
+
 if is_mode('release') then
     add_cxxflags('-O2')
-    add_defines('AOC_BENCH')
 end
 
 local day = {
@@ -55,5 +60,6 @@ for _, name in ipairs(day) do
         set_kind('binary')
         add_files('src/' .. name .. '/main.cpp')
         add_packages('range-v3')
+        add_options('benchmark')
     target_end()
 end

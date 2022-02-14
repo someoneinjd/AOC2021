@@ -10,6 +10,13 @@ C++ solutions for Advent of Code 2021 (using [range-v3](https://github.com/ericn
 xmake && xmake run
 ```
 
+## Benchmark
+
+```shell
+xmake f --benchmark=y
+xmake && xmake run
+```
+
 ## Debug
 
 ```shell
