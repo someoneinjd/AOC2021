@@ -10,7 +10,6 @@
 #include "range/v3/numeric/accumulate.hpp"
 #include "range/v3/range/conversion.hpp"
 #include "range/v3/view/iota.hpp"
-#include "range/v3/view/join.hpp"
 #include "range/v3/view/transform.hpp"
 
 #ifdef BENCHMARK

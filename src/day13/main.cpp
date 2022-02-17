@@ -9,7 +9,6 @@
 #include "range/v3/algorithm/sort.hpp"
 #include "range/v3/algorithm/unique.hpp"
 #include "range/v3/range/conversion.hpp"
-#include "range/v3/view/filter.hpp"
 #include "range/v3/view/iota.hpp"
 #include "range/v3/view/transform.hpp"
 
