@@ -1,5 +1,4 @@
 #include <array>
-#include <cstdint>
 #include <iostream>
 #include <map>
 #include <string_view>
@@ -45,19 +44,16 @@ Int solution1(const string_view str) {
     map<uint8_t, vector<uint8_t>> maps{};
     const auto get_or_insert = [&](const string_view a) {
         const auto idx{static_cast<uint8_t>(id.size())};
-        if (const auto iter = id.find(a); iter != id.cend())
-            return iter->second;
+        const auto [iter, no_contain]{id.try_emplace(a, idx)};
+        if (!no_contain) return iter->second;
         if (a.front() <= 'Z') uc.push_back(idx);
-        id.emplace(a, idx);
         return idx;
     };
     const auto branch = [&](const uint8_t a, const uint8_t b) {
-        if (!maps.contains(a)) {
-            vector<uint8_t> tmp{};
-            tmp.reserve(6);
-            maps.emplace(a, std::move(tmp));
-        }
-        if (b != 0) maps[a].push_back(b);
+        vector<uint8_t> tmp{};
+        tmp.reserve(6);
+        const auto [iter, _]{maps.try_emplace(a, std::move(tmp))};
+        if (b != 0) iter->second.push_back(b);
     };
     for (const string_view line : str | split('\n')) {
         const auto pos{line.find('-')};
@@ -109,19 +105,16 @@ Int solution2(const string_view str) {
     map<uint8_t, vector<uint8_t>> maps{};
     const auto get_or_insert = [&](const string_view a) {
         const auto idx{static_cast<uint8_t>(id.size())};
-        if (const auto iter = id.find(a); iter != id.cend())
-            return iter->second;
+        const auto [iter, no_contain]{id.try_emplace(a, idx)};
+        if (!no_contain) return iter->second;
         if (a.front() <= 'Z') uc.push_back(idx);
-        id.emplace(a, idx);
         return idx;
     };
     const auto branch = [&](const uint8_t a, const uint8_t b) {
-        if (!maps.contains(a)) {
-            vector<uint8_t> tmp{};
-            tmp.reserve(6);
-            maps.emplace(a, std::move(tmp));
-        }
-        if (b != 0) maps[a].push_back(b);
+        vector<uint8_t> tmp{};
+        tmp.reserve(6);
+        const auto [iter, _]{maps.try_emplace(a, std::move(tmp))};
+        if (b != 0) iter->second.push_back(b);
     };
     for (const string_view line : str | split('\n')) {
         const auto pos{line.find('-')};
