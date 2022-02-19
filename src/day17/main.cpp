@@ -44,8 +44,7 @@ Int solution2(const string_view str) {
     const auto nums{parse(str.substr(str.find('=') + 1))};
     const auto [x_min, x_max]{minmax(nums[0], nums[1])};
     const auto [y_min, y_max]{minmax(nums[2], nums[3])};
-    const auto reaches{[x_min = x_min, x_max = x_max, y_min = y_min,
-                        y_max = y_max](Int vx, Int vy) {
+    const auto reaches{[=](Int vx, Int vy) {
         Int posx = 0, posy = 0;
         while (true) {
             posx += vx;

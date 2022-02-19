@@ -49,9 +49,8 @@ Int solution1(const string_view str) {
     for (const auto &[y, line] : map | enumerate) {
         for (const auto &[x, cell] : line | enumerate) {
             sum += all_of(neighbors,
-                          [x = x, y = y, cell = cell,
-                           &map](const pair<Int, Int> &pat) {
-                              const auto [dx, dy] = pat;
+                          [&](const pair<Int, Int> &pat) {
+                              const auto [dx, dy]{pat};
                               // Implicit type conversion does not affect the
                               // result
                               return dx + x < 0 || dy + y < 0 || dx + x > 99 ||
@@ -68,7 +67,7 @@ Int solution2_helper(vector<string> &map, Int x, Int y) {
     map[y][x] = '9';
     return accumulate(
         neighbors | transform([=](const pair<Int, Int> &pat) {
-            const auto [dx, dy] = pat;
+            const auto [dx, dy]{pat};
             return pair{dx + x, dy + y};
         }),
         1ll, [&map](const Int acc, const pair<Int, Int> &pat) {

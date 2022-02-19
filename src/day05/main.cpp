@@ -77,14 +77,14 @@ Int solution2(const string_view str) {
         Int prev2{y};
         for (const auto [x, y] :
              zip(
-                 [&prev1, x = x, xx = xx] {
+                 [&] {
                      return generate([&prev1, x, xx] {
                          return exchange(
                              prev1,
                              prev1 + (xx == x ? 0ll : (xx > x ? 1ll : -1ll)));
                      });
                  }(),
-                 [&prev2, y = y, yy = yy] {
+                 [&] {
                      return generate([&prev2, y, yy] {
                          return exchange(
                              prev2,
