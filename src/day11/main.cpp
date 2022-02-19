@@ -34,9 +34,14 @@ using std::vector;
 
 using Int = long long;
 
-const array<pair<Int, Int>, 8> neighbours{
-    pair{-1ll, -1ll}, pair{0ll, -1ll}, pair{1ll, -1ll}, pair{1ll, 0ll},
-    pair{-1ll, 0ll},  pair{-1ll, 1ll}, pair{0ll, 1ll},  pair{1ll, 1ll}};
+const array<pair<Int, Int>, 8> neighbours{{{-1ll, -1ll},
+                                           {0ll, -1ll},
+                                           {1ll, -1ll},
+                                           {1ll, 0ll},
+                                           {-1ll, 0ll},
+                                           {-1ll, 1ll},
+                                           {0ll, 1ll},
+                                           {1ll, 1ll}}};
 
 Int solution_helper(vector<string> &map, Int x, Int y) {
     map[y][x] = '0';

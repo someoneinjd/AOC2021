@@ -41,7 +41,7 @@ using std::vector;
 using Int = long long;
 
 const array<pair<Int, Int>, 4> neighbors{
-    pair{0ll, -1ll}, {0ll, 1ll}, {1ll, 0ll}, {-1ll, 0ll}};
+    {{0ll, -1ll}, {0ll, 1ll}, {1ll, 0ll}, {-1ll, 0ll}}};
 
 Int solution1(const string_view str) {
     const auto map{str | split('\n') | to<vector<string_view>>()};

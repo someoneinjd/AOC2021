@@ -30,8 +30,7 @@ using std::vector;
 
 using Int = long long;
 
-const static array<pair<Int, Int>, 4> NEXT{pair{1, 0}, pair{-1, 0}, pair{0, 1},
-                                           pair{0, -1}};
+const static array<pair<Int, Int>, 4> NEXT{{{1, 0}, {-1, 0}, {0, 1}, {0, -1}}};
 
 template <typename F>
 Int dijkstra(F get_neighbors, const Int width, const Int height) {
