@@ -73,26 +73,24 @@ Int solution2(const string_view str) {
     Int overlaps{0ll};
     for (const string_view pat : str | split('\n')) {
         const auto [x, y, xx, yy] = parse(pat);
-        Int prev1{x};
-        Int prev2{y};
-        for (const auto [x, y] :
+        for (const auto [fst, snd] :
              zip(
                  [&] {
-                     return generate([&prev1, x, xx] {
+                     return generate([prev1 = x, x, xx] mutable {
                          return exchange(
                              prev1,
                              prev1 + (xx == x ? 0ll : (xx > x ? 1ll : -1ll)));
                      });
                  }(),
                  [&] {
-                     return generate([&prev2, y, yy] {
+                     return generate([prev2 = y, y, yy] mutable {
                          return exchange(
                              prev2,
                              prev2 + (yy == y ? 0ll : (yy > y ? 1ll : -1ll)));
                      });
                  }()) |
                  take(max(abs(xx - x), abs(yy - y)) + 1)) {
-            overlaps += map[x + y * 1000]++ == 1;
+            overlaps += map[fst + snd * 1000]++ == 1;
         }
     }
     return overlaps;
