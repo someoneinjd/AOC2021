@@ -25,7 +25,7 @@ local day = {
 for _, name in ipairs(day) do 
     target(name)
         set_kind('binary')
-        add_files('src/' .. name .. '/main.cpp')
+        add_files(path.join('src', name, 'main.cpp'))
         add_packages('range-v3')
         add_options('benchmark')
     target_end()
