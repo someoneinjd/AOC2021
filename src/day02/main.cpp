@@ -3,7 +3,7 @@
 #include <tuple>
 
 #include "../better_split.hpp"
-#include "range/v3/algorithm/fold_left.hpp"
+#include "range/v3/numeric/accumulate.hpp"
 
 #ifdef BENCHMARK
 #include <chrono>
@@ -12,7 +12,7 @@ using std::chrono::microseconds;
 using std::chrono::system_clock;
 #endif
 
-using ranges::fold_left;
+using ranges::accumulate;
 using ranges::views::split;
 using std::atoll;
 using std::cout;
@@ -23,7 +23,7 @@ using Int = long long;
 
 Int solution1(const string_view str) {
     const auto [f, d] =
-        fold_left(str | split('\n'), tuple{0ll, 0ll},
+        accumulate(str | split('\n'), tuple{0ll, 0ll},
                   [](const auto &res, const string_view cmd) {
                       auto [f, d] = res;
                       const auto step_num{
@@ -41,7 +41,7 @@ Int solution1(const string_view str) {
 
 Int solution2(const string_view str) {
     const auto [f, d, _] =
-        fold_left(str | split('\n'), tuple{0ll, 0ll, 0ll},
+        accumulate(str | split('\n'), tuple{0ll, 0ll, 0ll},
                   [](const auto &res, const string_view cmd) {
                       auto [f, d, a] = res;
                       const auto step_num{
