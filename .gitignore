@@ -1,6 +1,7 @@
-.cache
-.xmake
-build
-compile_commands.json
-new.sh
-test.sh
+cpp/.cache
+cpp/.xmake
+cpp/build
+cpp/compile_commands.json
+python/env
+python/test.sh
+python/new.sh
