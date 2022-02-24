@@ -60,6 +60,8 @@ Int solution2(const string_view str) {
               }) |
               to<vector<Int>>()};
     auto num2{num1};
+    auto res1{0ll};
+    auto res2{0ll};
     for (const Int i : iota(0ull, 12ull) | reverse) {
         const Int one1{count_if(num1, [=](const Int n) {
                            return (n & (1 << i)) > 0;
@@ -71,8 +73,12 @@ Int solution2(const string_view str) {
                  [=](const Int n) { return ((n & (1 << i)) > 0) == one1; });
         erase_if(num2,
                  [=](const Int n) { return ((n & (1 << i)) > 0) != one2; });
+        if (num1.size() == 1)
+            res1 = num1.front();
+        if (num2.size() == 1)
+            res2 = num2.front();
     }
-    return num1[0] * num2[0];
+    return res1 * res2;
 }
 
 int main() {
