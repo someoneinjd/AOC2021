@@ -13,7 +13,7 @@ xmake && xmake run
 
 # Python
 cd python
-python3 src/day*
+find src/ -name '*.py' | xargs -i python3 {}
 ```
 
 ## Benchmark (Only for C++)
