@@ -1,4 +1,4 @@
-from time import process_time_ns
+from timeit import timeit
 
 
 def solution1(data: str) -> int:
@@ -12,16 +12,13 @@ def solution2(data: str) -> int:
 
 
 data = open("input/input01.txt").read()
-point1 = process_time_ns()
 res1 = solution1(data)
-point2 = process_time_ns()
 res2 = solution2(data)
-point3 = process_time_ns()
 print(
     "{}\n{}\nElapsed Time 1:\n\t{}ms\nElasped Time 2:\n\t{}ms".format(
         res1,
         res2,
-        (point2 - point1) / 1000000.0,
-        (point3 - point2) / 1000000.0,
+        timeit('solution1(data)', number=100, globals=globals()) * 10.0,
+        timeit('solution2(data)', number=100, globals=globals()) * 10.0
     )
 )
