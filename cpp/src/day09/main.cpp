@@ -49,7 +49,8 @@ Int solution1(const string_view str) {
     for (const auto &[y, line] : map | enumerate) {
         for (const auto &[x, cell] : line | enumerate) {
             sum += all_of(neighbors,
-                          [&](const pair<Int, Int> &pat) {
+                          [&map, x = x, y = y,
+                           cell = cell](const pair<Int, Int> &pat) {
                               const auto [dx, dy]{pat};
                               // Implicit type conversion does not affect the
                               // result

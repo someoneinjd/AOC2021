@@ -68,7 +68,7 @@ Int solution(const string_view str) {
         for (auto &[b, m] : new_boards) {
             if (!b.contains(n)) continue;
             m |= 1 << b[n];
-            if (any_of(iota(0ll, 5ll), [=](const Int i) {
+            if (any_of(iota(0ll, 5ll), [m = m](const Int i) {
                     return (m >> (i * 5) & 0b11111) == 0b11111 ||
                            (m >> i & 0b100001000010000100001) ==
                                0b100001000010000100001;

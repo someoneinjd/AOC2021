@@ -127,7 +127,7 @@ Int solution1(const string_view str) {
                          make_move_iterator(new_vec.end()));
         }
         if (on) {
-            res += accumulate(iota(0, 3) | transform([&](const Int c) {
+            res += accumulate(iota(0, 3) | transform([&info = info](const Int c) {
                                   return info[3 + c] - info[c] + 1;
                               }),
                               1ll, multiplies<Int>());
@@ -173,7 +173,7 @@ Int solution2(const string_view str) {
                          make_move_iterator(new_vec.end()));
         }
         if (on) {
-            res += accumulate(iota(0, 3) | transform([&](const Int c) {
+            res += accumulate(iota(0, 3) | transform([&info = info](const Int c) {
                                   return info[3 + c] - info[c] + 1;
                               }),
                               1ll, multiplies<Int>());

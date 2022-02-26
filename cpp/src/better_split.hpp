@@ -9,7 +9,7 @@
 
 template <ranges::contiguous_range V, ranges::forward_range Pattern>
 requires ranges::view_<V> && ranges::view_<Pattern> &&
-    std::indirectly_comparable<ranges::iterator_t<V>,
+    ranges::indirectly_comparable<ranges::iterator_t<V>,
                                ranges::iterator_t<Pattern>, ranges::equal_to>
 class contig_split_view
     : public ranges::view_interface<contig_split_view<V, Pattern>> {

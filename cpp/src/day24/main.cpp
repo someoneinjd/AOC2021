@@ -1,4 +1,3 @@
-#include <array>
 #include <cmath>
 #include <functional>
 #include <iostream>

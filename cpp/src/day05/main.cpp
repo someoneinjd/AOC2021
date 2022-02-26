@@ -75,15 +75,15 @@ Int solution2(const string_view str) {
         const auto [x, y, xx, yy] = parse(pat);
         for (const auto [fst, snd] :
              zip(
-                 [&] {
-                     return generate([prev1 = x, x, xx] mutable {
+                 [x = x, xx = x] {
+                     return generate([prev1 = x, x, xx]() mutable {
                          return exchange(
                              prev1,
                              prev1 + (xx == x ? 0ll : (xx > x ? 1ll : -1ll)));
                      });
                  }(),
-                 [&] {
-                     return generate([prev2 = y, y, yy] mutable {
+                 [y = y, yy = y] {
+                     return generate([prev2 = y, y, yy]() mutable {
                          return exchange(
                              prev2,
                              prev2 + (yy == y ? 0ll : (yy > y ? 1ll : -1ll)));
