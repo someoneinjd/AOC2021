@@ -5,11 +5,8 @@
 #include <utility>
 
 #include "../better_split.hpp"
-#include "range/v3/view/generate.hpp"
 #include "range/v3/view/iota.hpp"
-#include "range/v3/view/take.hpp"
 #include "range/v3/view/transform.hpp"
-#include "range/v3/view/zip.hpp"
 
 #ifdef BENCHMARK
 #include <chrono>
@@ -18,16 +15,12 @@ using std::chrono::microseconds;
 using std::chrono::system_clock;
 #endif
 
-using ranges::views::generate;
 using ranges::views::iota;
 using ranges::views::split;
-using ranges::views::take;
 using ranges::views::transform;
-using ranges::views::zip;
 using std::abs;
 using std::array;
 using std::cout;
-using std::exchange;
 using std::isdigit;
 using std::max;
 using std::min;
@@ -52,6 +45,7 @@ array<Int, 4> parse(const string_view str) {
 }
 
 Int solution1(const string_view str) {
+    map.fill(0);
     Int overlaps{0ll};
     for (const auto [x, y, xx, yy] :
          str | split('\n') | transform([](const string_view pat) {
@@ -73,24 +67,14 @@ Int solution2(const string_view str) {
     Int overlaps{0ll};
     for (const string_view pat : str | split('\n')) {
         const auto [x, y, xx, yy] = parse(pat);
-        for (const auto [fst, snd] :
-             zip(
-                 [x = x, xx = x] {
-                     return generate([prev1 = x, x, xx]() mutable {
-                         return exchange(
-                             prev1,
-                             prev1 + (xx == x ? 0ll : (xx > x ? 1ll : -1ll)));
-                     });
-                 }(),
-                 [y = y, yy = y] {
-                     return generate([prev2 = y, y, yy]() mutable {
-                         return exchange(
-                             prev2,
-                             prev2 + (yy == y ? 0ll : (yy > y ? 1ll : -1ll)));
-                     });
-                 }()) |
-                 take(max(abs(xx - x), abs(yy - y)) + 1)) {
-            overlaps += map[fst + snd * 1000]++ == 1;
+        const auto step1 = xx == x ? 0ll : (xx > x ? 1ll : -1ll);
+        const auto step2 = yy == y ? 0ll : (yy > y ? 1ll : -1ll);
+        auto prev1{x}, prev2{y};
+        for (const auto _: iota(0, max(abs(xx - x), abs(yy - y)) + 1)) {
+            overlaps += map[prev1 + prev2 * 1000]++ == 1;
+            prev1 += step1;
+            prev2 += step2;
+
         }
     }
     return overlaps;
