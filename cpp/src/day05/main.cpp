@@ -70,11 +70,10 @@ Int solution2(const string_view str) {
         const auto step1 = xx == x ? 0ll : (xx > x ? 1ll : -1ll);
         const auto step2 = yy == y ? 0ll : (yy > y ? 1ll : -1ll);
         auto prev1{x}, prev2{y};
-        for (const auto _: iota(0, max(abs(xx - x), abs(yy - y)) + 1)) {
+        for (const auto _ : iota(0, max(abs(xx - x), abs(yy - y)) + 1)) {
             overlaps += map[prev1 + prev2 * 1000]++ == 1;
             prev1 += step1;
             prev2 += step2;
-
         }
     }
     return overlaps;
