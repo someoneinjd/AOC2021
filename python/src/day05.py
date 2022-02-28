@@ -1,6 +1,5 @@
 from timeit import timeit
 from array import array
-from typing import Iterable, Tuple
 
 map = array("H", (0 for _ in range(1000_000)))
 
